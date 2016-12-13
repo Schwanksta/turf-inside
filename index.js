@@ -62,7 +62,7 @@ var invariant = require('turf-invariant');
  * var isInside2 = turf.inside(pt2, poly);
  * //=isInside2
  */
-module.exports = function(point, polygon) {
+module.exports = function(point, polygon, checkHole) {
   invariant.featureOf(point, 'Point', 'inside');
   var polys = polygon.geometry.coordinates;
   var pt = [point.geometry.coordinates[0], point.geometry.coordinates[1]];
@@ -83,7 +83,8 @@ module.exports = function(point, polygon) {
         }
         k++;
       }
-      if(!inHole) insidePoly = true;
+     insidePoly = true;
+     if((checkHole === undefined || checkHole == true) && inHole) insidePoly = false
     }
     i++;
   }
